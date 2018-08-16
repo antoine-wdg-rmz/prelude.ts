@@ -181,10 +181,10 @@ describe("Future.filter", () => {
 describe("Future.orElse", () => {
     it("is a nop if the first promise succeeds, even if it's slower", async () => {
         assert.deepEqual(1, await Future.ofCallbackApi(done => setTimeout(done, 50, 1))
-                     .orElse(Future.ok(2)));
+                         .orElse(()=>Future.ok(2)));
     });
     it("falls back to the second promise in case the first one fails", async () => {
-        assert.deepEqual(2, await Future.failed("oops").orElse(Future.ok(2)));
+        assert.deepEqual(2, await Future.failed("oops").orElse(()=>Future.ok(2)));
     });
 });
 describe("Future.find", () => {
